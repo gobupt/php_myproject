@@ -7,22 +7,13 @@
 function checkadmin($sql) {
     return fetchone($sql);  //查看是否有数据
 }
+
 /**
- * 检查管理员是否登录
+ * 获得所有管理员
+ * @return Ambigous <Ambigous, multitype:>
  */
-function checklogined() {
-    if($_SESSION['adminid']==""&&$_COOKIE['adminid']=="") {
-        alertmes("没有登录，请先登录", "login.php");
-    }
-}
-function addadmin() {
-    $arr=$_GET;
-    if(insert("",$arr)){
-        $mes="添加成功!<br/><a href='addadmin.php'>继续添加</a>";
-    }
-}
 function getalladmin() {
-    $sql = "select * from xx";
+    $sql = "select * from house_admin";
     $rows = fetchall($sql);
     return $rows;
 }
@@ -41,6 +32,10 @@ function logout() {
         setcookie("adminname","",time()-1);
     }
     session_destroy();
-    //是不是可以加入一个确认框？询问是否退出。
-    alertmes("退出成功", "login.php");
+    go("adlogin.php");
+}
+function getoneadmin($id) {
+    $sql = "select * from house_admin where id=$id";
+    $rows = fetchone($sql);
+    return $rows;
 }

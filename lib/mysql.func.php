@@ -19,7 +19,6 @@ function insert($table,$array) {
     $keys = join(",",array_keys($array));
     $value = "'".join("','",array_values($array))."'";
     $sql = "insert $table ($keys) values($value)";
-    echo $sql;
     mysql_query($sql);
     return mysql_insert_id();
 }

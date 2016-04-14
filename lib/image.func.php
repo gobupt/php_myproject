@@ -22,6 +22,7 @@ function verifyImage($sess_name = "verify",$length = 4,$type = 3)
         $text = substr($chars, $i, 1);
         imagettftext($image, $size, $angle, $x, $y, $color, $fontfile, $text);
     }
+    ob_clean();
     header("content-type:image/gif");
     imagegif($image);
     imagedestroy($image);
