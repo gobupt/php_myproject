@@ -20,19 +20,19 @@ function getalladmin() {
 /**
  * 注销管理员
  */
-function logout() {
+function logout($g) {
     $_SESSION=array();  //清缓存
     if(isset($_COOKIE[session_name()])){
-        setcookie(session_name(),"",time()-1);
+        setcookie(session_name(),"",time()-1,"/","localhost");
     }
     if(isset($_COOKIE['adminid'])) {
-        setcookie("adminid","",time()-1);
+        setcookie("adminid","",time()-1,"/","localhost");
     }
     if(isset($_COOKIE['adminname'])) {
-        setcookie("adminname","",time()-1);
+        setcookie("adminname","",time()-1,"/","localhost");
     }
     session_destroy();
-    go("adlogin.php");
+    go("$g");
 }
 function getoneadmin($id) {
     $sql = "select * from house_admin where id=$id";

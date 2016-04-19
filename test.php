@@ -12,30 +12,8 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-
   <body>
-
-<a data-toggle="modal" href="#addad">添加管理员</a>
-                        <div class="modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="addad">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">
-                                            <span aria-hidden="true">&times;</span>
-                                            <span class="sr-only">Close</span>
-                                        </button>
-                                        <h4 class="modal-title text-center">添加管理员</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        添加内容部分
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">添加</button>
-				                        <button type="button" class="btn btn-primary">取消</button>
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>
+        
     <script src="js/jquery.1.11.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
   </body>

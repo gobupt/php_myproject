@@ -1,5 +1,4 @@
 <?php
-require_once '../include.php';
 /**
  * 连接数据库
  * @return resource

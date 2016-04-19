@@ -1,3 +1,4 @@
 <?php
 require_once '../include.php';
-logout();
+$g="adlogin.php";
+logout($g);
