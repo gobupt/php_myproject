@@ -25,7 +25,7 @@
     <![endif]-->
 </head>
 <body >
-	<nav class="navbar navbar-fixed-top navbar-inverse">
+	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -416,7 +416,33 @@
 		</div>
 	</div>    
     <!-- 触发editvip-->
- 	<img src="./images/admin_index.jpg" class="img-responsive" alt=""> 
+ 	<div class="page-header text-center">
+        <h1>新闻发布<small>后台管理</small></h1>
+    </div>
+    <form class="form-horizontal" method="post" action="newsadd.handle.php">
+        <div class="form-group">
+            <label for="title" class="control-label col-md-2">标题</label>
+            <div class="col-md-2">
+            <input type="text" class="form-control" id="title" name="title">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="source" class="control-label col-md-2">来源</label>
+            <div class="col-md-2">
+            <input type="text" class="form-control" id="source" name="source">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="content" class="control-label col-md-2">内容</label>
+            <div class="col-md-8">
+            <textarea class="form-control" rows="30" name="content" id="content"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label"><button class="btn btn-primary" type="submit">发布</button></label>
+            <label class="col-md-3 control-label"><button class="btn btn-warning" type="reset">重置</button></label>
+        </div>
+    </form>
 	<script src="js/jquery.1.11.3.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

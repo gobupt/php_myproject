@@ -8,6 +8,11 @@ function getallvip() {
     $rows = fetchall($sql);
     return $rows;
 }
+function getonevip($id) {
+    $sql = "select * from house_vip where id=$id";
+    $row = fetchone($sql);
+    return $row;
+}
 /**
  * 检查是否有会员
  * @param unknown $sql

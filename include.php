@@ -12,4 +12,5 @@ require_once 'page.func.php';
 require_once 'configs.php';
 require_once 'admin.inc.php';
 require_once 'vip.inc.php';
+require_once 'new.inc.php';
 connect();

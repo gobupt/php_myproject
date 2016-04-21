@@ -10,6 +10,7 @@
     $row = getalladmin();
     $row2= getallvip();
     $edit = getoneadmin($_SESSION['adminid']);
+    $row3= getallnew();
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -25,7 +26,7 @@
     <![endif]-->
 </head>
 <body >
-	<nav class="navbar navbar-fixed-top navbar-inverse">
+	<nav class="navbar  navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -416,7 +417,36 @@
 		</div>
 	</div>    
     <!-- 触发editvip-->
- 	<img src="./images/admin_index.jpg" class="img-responsive" alt=""> 
+ 	<div class="page-header text-center">
+        <h1>新闻列表<small>后台管理</small></h1>
+    </div>
+    <div class="row ">
+       <div class="col-md-offset-3 col-md-7">
+        <table class="table table-bordered table-hover table-striped ">
+            <tr >
+                <th class="text-center">#</th>
+                <th class="text-center">标题</th>
+                <th class="text-center">来源</th>
+                <th class="text-center">发布时间</th>
+                <th class="text-center">操作</th>
+            </tr>
+            <?php if(!empty($row3)) { 
+                $k=1;foreach ($row3 as $val) {?>
+            <tr>
+                <td class="text-center"><?php echo $k;?></td>
+                <td class="text-center"><?php echo $val['title']?></td>
+                <td class="text-center"><?php echo $val['source']?></td>
+                <td class="text-center"><?php echo date("Y/m/d H:i:s",$val['pubtime'])?></td>
+                <td class="text-center"> 
+                    <a class="btn btn-info btn-xs" href= "newsedit.php?id=<?php echo $val['id'];?>">编辑</a> 
+                    &nbsp; &nbsp;
+                    <a class="btn btn-danger btn-xs" href="newsdel.handle.php?id=<?php echo $val['id']?>">删除</a>
+                </td>
+            </tr>
+            <?php $k++;}}?>
+        </table>
+       </div>
+    </div>
 	<script src="js/jquery.1.11.3.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

@@ -1,4 +1,9 @@
-<?php require_once '../include.php';?>
+<?php 
+    require_once '../include.php';
+    if(!isset($_SESSION['vipid']))  alertmes("请先登录", "../index.php");
+    $id = $_SESSION['vipid'];
+    $row = getonevip($id);
+?>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -48,6 +53,45 @@
                 </div>
                 <div class="col-md-11">
                 <!--body-->
+                <div class="page-header text-right">
+                    <h1 class="text-center">会员信息管理 <small>个人中心</small>
+                    </h1>
+                    <a href="editvip.php" class="btn btn-primary">编辑</a>
+                </div>
+                <table class="table table-bordered text-center table-hover">
+                <tr class="active">
+                <td>用户名</td>
+                <td><?php echo $row['username'];?></td>
+                </tr>
+                <tr >
+                <td>姓名</td>
+                <td><?php echo $row['name']?></td>
+                </tr>
+                <tr class="danger">
+                <td>性别</td>
+                <td><?php echo $row['sex'];?></td>
+                </tr>
+                <tr>
+                <td>邮箱</td>
+                <td><?php echo $row['email'];?></td>
+                </tr>
+                <tr class="success">
+                <td>身份证号</td>
+                <td><?php echo $row['id_card'];?></td>
+                </tr>
+                <tr>
+                <td>手机号</td>
+                <td><?php echo $row['phone'];?></td>
+                </tr>
+                <tr class="warning">
+                <td>通讯地址</td>
+                <td><?php echo $row['address']?></td>
+                </tr>
+                <tr>
+                <td>注册时间</td>
+                <td><?php echo date("Y/m/d H:i:s",$row['regtime']);?></td>
+                </tr>
+                </table>
                 <!--body-->
                 </div>
             </div>
