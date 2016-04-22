@@ -437,7 +437,9 @@
         <div class="form-group">
             <label for="content" class="control-label col-md-2">内容</label>
             <div class="col-md-8">
-            <textarea class="form-control" rows="30" name="content" id="content" placeholder="<?php echo $row3['content'];?>"></textarea>
+            <script id="container" name="content" type="text/plain" style="height: 500px">
+                <?php echo $row3['content'];?>
+            </script>
             </div>
         </div>
         <div class="form-group">
@@ -445,6 +447,11 @@
             <label class="col-md-3 control-label"><button class="btn btn-warning" type="reset">重置</button></label>
         </div>
     </form>
+    <script type="text/javascript" src="../UEditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="../UEditor/ueditor.all.js"></script>
+    <script type="text/javascript">
+        var ue = UE.getEditor('container');
+    </script>
 	<script src="js/jquery.1.11.3.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

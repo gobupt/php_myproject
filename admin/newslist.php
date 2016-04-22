@@ -10,7 +10,12 @@
     $row = getalladmin();
     $row2= getallvip();
     $edit = getoneadmin($_SESSION['adminid']);
-    $row3= getallnew();
+    /* $row3= getallnew(); */
+    $pagesize=3;
+    $totalrows=getnewnum();
+    $page=$_GET['page']?$_GET['page']:1;
+    $totalpage=ceil($totalrows/$pagesize);
+    $row3 = getnewbypage($pagesize, $page, $totalpage);
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -431,7 +436,7 @@
                 <th class="text-center">操作</th>
             </tr>
             <?php if(!empty($row3)) { 
-                $k=1;foreach ($row3 as $val) {?>
+                $k=($page-1)*$pagesize+1;foreach ($row3 as $val) {?>
             <tr>
                 <td class="text-center"><?php echo $k;?></td>
                 <td class="text-center"><?php echo $val['title']?></td>
@@ -444,6 +449,7 @@
                 </td>
             </tr>
             <?php $k++;}}?>
+            <?php echo showpage($page, $totalpage)?>
         </table>
        </div>
     </div>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -13,7 +12,17 @@
     <![endif]-->
   </head>
   <body>
+    <form action="test2.php" method="post">
+        <script id="container" name="content" type="text/plain">
         
+        </script>
+        <button type="submit">提交</button>
+    </form>
+    <script type="text/javascript" src="./UEditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="./UEditor/ueditor.all.js"></script>
+    <script type="text/javascript">
+        var ue = UE.getEditor('container');
+    </script>
     <script src="js/jquery.1.11.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
   </body>
