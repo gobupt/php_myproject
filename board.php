@@ -1,11 +1,4 @@
-<?php 
-    require_once 'include.php';
-    $pagesize=5;
-    $totalrows=getnewnum();
-    $page=$_GET['page']?$_GET['page']:1;
-    $totalpage=ceil($totalrows/$pagesize);
-    $row3 = getnewbypage($pagesize, $page, $totalpage);
-?>
+<?php require_once 'include.php';?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -41,8 +34,8 @@
 				<li><a href="houserequest.php">房屋需求</a></li>
 			</ul>
 			<ul class="nav navbar-nav">
-				<li><a href="board.php">留言板</a></li>
-				<li class="active"><a href="newslist.php" >最新行情</a></li>
+				<li class="active"><a href="board.php">留言板</a></li>
+				<li><a href="newslist.php">最新行情</a></li>
 			</ul>
 			<?php if($_SESSION['vipname']||$_SESSION['adminname']||$_COOKIE['adminname']) {$name=$_SESSION['vipname'];?>
 			<?php if(!isset($_SESSION['adminid'])) {
@@ -82,27 +75,23 @@
 		</div>
 	</nav>
 	<!--body-->
+	<!--留言板LOGO部分，看着改-->
 	<div class="page-header text-center">
-        <h1>最新行情<small>Industry News</small></h1>
+        <h1>留言板<small>欢迎留言</small></h1>
     </div>
-    <div class="row ">
-       <div class="col-md-offset-3 col-md-6">
-        <table class="table table-hover table-striped ">
-            <?php if(!empty($row3)) { 
-                    foreach ($row3 as $val) {?>
-            <tr>
-                <td class="text-left"><span class="glyphicon glyphicon-exclamation-sign" style="color: blue"></span>&nbsp;<a href="news.php?id=<?php echo $val['id'];?>" style="color: black"><?php echo $val['title']?></a></td>
-                <td class="text-right"><?php echo date("Y/m/d H:i:s",$val['pubtime']);?></td>
-            </tr>
-            <?php }}?>
-        </table>
-        <div class="col-md-offset-5">
-            <?php echo showpage($page, $totalpage)?>
-        </div>
-       </div>
+    <!--留言板LOGO部分，看着改-->
+    <div class="container" style="margin-bottom:20px">
+        <?php $t = getboardbypage();?>
+    
+    <form action="addmessage.handle.php" method="post">
+        <script id="addmessage" name="content" type="text/plain">
+        
+        </script>
+        <button class="btn btn-info" type="submit" onClick="return addmessage();">发表留言</button>
+    </form>
     </div>
 	<!--body-->
-	<nav class="navbar navbar-inverse navbar-fixed-bottom">
+	<nav class="navbar navbar-inverse " style="margin-bottom:0">
 		<div class="row">
 			<div class="col-md-offset-4">
 				<p class="navbar-text">copyright&copy;&nbsp;2016</p>
@@ -200,6 +189,31 @@
 		</div>
 	</div>
 	<!-- 触发addvip-->
+	<script type="text/javascript" src="./UEditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="./UEditor/ueditor.all.js"></script>
+    <script type="text/javascript">
+        UE.delEditor("addmessage");
+        var ue1 = UE.getEditor('addmessage',{
+        	maximumWords:'200',
+        	initialFrameHeight:'400'
+        });
+        
+        function addmessage() {
+            var flag=ue1.hasContents();
+            var number=ue1.getContentLength(true);
+            if(flag==0) {
+                alert('请输入内容');
+                return false;
+            }
+            else if(number>200) {
+                alert('对不起,您输入的内容过长');
+                return false;
+            }
+            else
+                return true;
+        }
+    </script>
+    <?php echo showjavascript_board($t);?>
 	<script src="js/jquery.1.11.3.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

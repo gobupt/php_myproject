@@ -1,10 +1,7 @@
 <?php 
     require_once 'include.php';
-    $pagesize=5;
-    $totalrows=getnewnum();
-    $page=$_GET['page']?$_GET['page']:1;
-    $totalpage=ceil($totalrows/$pagesize);
-    $row3 = getnewbypage($pagesize, $page, $totalpage);
+    $id = $_GET['id'];
+    $row = getonenew($id);
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -42,7 +39,7 @@
 			</ul>
 			<ul class="nav navbar-nav">
 				<li><a href="board.php">留言板</a></li>
-				<li class="active"><a href="newslist.php" >最新行情</a></li>
+				<li class="active"><a href="newslist.php">最新行情</a></li>
 			</ul>
 			<?php if($_SESSION['vipname']||$_SESSION['adminname']||$_COOKIE['adminname']) {$name=$_SESSION['vipname'];?>
 			<?php if(!isset($_SESSION['adminid'])) {
@@ -82,24 +79,16 @@
 		</div>
 	</nav>
 	<!--body-->
-	<div class="page-header text-center">
-        <h1>最新行情<small>Industry News</small></h1>
-    </div>
-    <div class="row ">
-       <div class="col-md-offset-3 col-md-6">
-        <table class="table table-hover table-striped ">
-            <?php if(!empty($row3)) { 
-                    foreach ($row3 as $val) {?>
-            <tr>
-                <td class="text-left"><span class="glyphicon glyphicon-exclamation-sign" style="color: blue"></span>&nbsp;<a href="news.php?id=<?php echo $val['id'];?>" style="color: black"><?php echo $val['title']?></a></td>
-                <td class="text-right"><?php echo date("Y/m/d H:i:s",$val['pubtime']);?></td>
-            </tr>
-            <?php }}?>
-        </table>
-        <div class="col-md-offset-5">
-            <?php echo showpage($page, $totalpage)?>
-        </div>
+	<div class="row" style="margin-bottom: 70px">
+	<div class="col-md-offset-2 col-md-8" style="border: 1px solid LightGray">
+	   <div class="page-header">
+         <h1 class="text-center" style="color: #337ab7"><?php echo $row['title'];?></h1>
+         <h2 class="text-center" ><small style="color: #DC143C">新闻来源:<?php echo $row['source'];?></small>&nbsp;&nbsp;&nbsp;<small style="color: #DC143C">发布时间:<?php echo date("Y/m/d H:i:s",$row['pubtime']);?></small></h2>
        </div>
+       <div>
+            <p><?php echo $row['content'];?></p>
+       </div>
+    </div>
     </div>
 	<!--body-->
 	<nav class="navbar navbar-inverse navbar-fixed-bottom">

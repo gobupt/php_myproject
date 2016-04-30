@@ -1,11 +1,4 @@
-<?php 
-    require_once 'include.php';
-    $pagesize=5;
-    $totalrows=getnewnum();
-    $page=$_GET['page']?$_GET['page']:1;
-    $totalpage=ceil($totalrows/$pagesize);
-    $row3 = getnewbypage($pagesize, $page, $totalpage);
-?>
+<?php require_once 'include.php';?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -37,12 +30,12 @@
 				<li><a href="introduce.php">网站介绍</a></li>
 			</ul>
 			<ul class="nav navbar-nav">
-				<li><a href="housesale.php">房屋供应</a></li>
+				<li class="active"><a href="housesale.php">房屋供应</a></li>
 				<li><a href="houserequest.php">房屋需求</a></li>
 			</ul>
 			<ul class="nav navbar-nav">
 				<li><a href="board.php">留言板</a></li>
-				<li class="active"><a href="newslist.php" >最新行情</a></li>
+				<li><a href="newslist.php">最新行情</a></li>
 			</ul>
 			<?php if($_SESSION['vipname']||$_SESSION['adminname']||$_COOKIE['adminname']) {$name=$_SESSION['vipname'];?>
 			<?php if(!isset($_SESSION['adminid'])) {
@@ -82,25 +75,52 @@
 		</div>
 	</nav>
 	<!--body-->
-	<div class="page-header text-center">
-        <h1>最新行情<small>Industry News</small></h1>
-    </div>
-    <div class="row ">
-       <div class="col-md-offset-3 col-md-6">
-        <table class="table table-hover table-striped ">
-            <?php if(!empty($row3)) { 
-                    foreach ($row3 as $val) {?>
-            <tr>
-                <td class="text-left"><span class="glyphicon glyphicon-exclamation-sign" style="color: blue"></span>&nbsp;<a href="news.php?id=<?php echo $val['id'];?>" style="color: black"><?php echo $val['title']?></a></td>
-                <td class="text-right"><?php echo date("Y/m/d H:i:s",$val['pubtime']);?></td>
-            </tr>
-            <?php }}?>
-        </table>
-        <div class="col-md-offset-5">
-            <?php echo showpage($page, $totalpage)?>
-        </div>
-       </div>
-    </div>
+	<div id="slidershow" class="carousel slide" data-ride="carousel"
+		data-interval="1800">
+		<ol class="carousel-indicators">
+			<li class="active" data-target="#slidershow" data-slide-to="0"></li>
+			<li data-target="#slidershow" data-slide-to="1"></li>
+			<li data-target="#slidershow" data-slide-to="2"></li>
+		</ol>
+		<!-- 设置轮播图片 -->
+		<div class="carousel-inner">
+			<div class="item active">
+				<a href="##"><img
+					src="http://www.fwzjw.roboo.com/upload/2015-11-27/1448614947904-11706.png"
+					alt=""></a>
+				<!-- <div class="carousel-caption">
+					<h3>图片标题1</h3>
+					<p>描述内容1...</p>
+				</div> -->
+			</div>
+			<div class="item">
+				<a href="##"><img
+					src="http://www.fwzjw.roboo.com/upload/2015-11-27/1448614947904-11706.png"
+					alt=""></a>
+				<!-- <div class="carousel-caption">
+					<h3>图片标题2</h3>
+					<p>描述内容2...</p>
+				</div> -->
+			</div>
+			<div class="item">
+				<a href="##"><img
+					src="http://www.fwzjw.roboo.com/upload/2015-11-27/1448614947904-11706.png"
+					alt=""></a>
+				<!-- <div class="carousel-caption">
+					<h3>图片标题3</h3>
+					<p>描述内容3...</p>
+				</div> -->
+			</div>
+		</div>
+		<!-- 设置轮播图片控制器 -->
+		<a class="left carousel-control" href="#slidershow" role="button"
+			data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span>
+		</a> <a class="right carousel-control" href="#slidershow"
+			role="button" data-slide="next"> <span
+			class="glyphicon glyphicon-chevron-right"></span>
+		</a>
+	</div>
+	
 	<!--body-->
 	<nav class="navbar navbar-inverse navbar-fixed-bottom">
 		<div class="row">

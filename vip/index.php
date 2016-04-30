@@ -34,7 +34,6 @@
                 <div class="col-md-1">
                     <div class="list-group">
                         <a href="#" class="list-group-item active">个人中心</a>
-                        <a href="#" class="list-group-item">留言管理</a>
                         <a href="#" class="list-group-item">房屋列表</a>
                         <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle list-group-item" type="button" id="" data-toggle="dropdown"

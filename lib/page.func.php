@@ -3,18 +3,19 @@ function showpage($page, $totalpage, $where = NULL)
 {
     $where = ($where==null)?null:"&".$where;
     $url = $_SERVER['PHP_SELF'];
-    $index = ($page == 1) ? "首页" : "<a href='$url?page=1$where'>首页</a>";
-    $last = ($page == $totalpage) ? "尾页" : "<a href='$url?page=$totalpage$where'>尾页</a>";
-    $pre = ($page == 1) ? "上一页" : "<a href='$url?page=" . ($page - 1) . "$where'>上一页</a>";
-    $next = ($page == $totalpage) ? "下一页" : "<a href='$url?page=" . ($page + 1) . "$where'>下一页</a>";
-    $s = "总共 $totalpage 页/当前是第 $page 页";
+    $index = ($page == 1) ? "<li class='disabled'><a href='$url?page=1$where'><span>&laquo</span></a></li>" : "<li><a href='$url?page=1$where'><span>&laquo</span></a></li>";
+    $last = ($page == $totalpage) ? "<li class='disabled'><a href='$url?page=$totalpage$where' ><span>&raquo;</span></a></li>" : "<li><a href='$url?page=$totalpage$where' ><span>&raquo;</span></a></li>";
+    $pre = ($page == 1) ? "<li class='disabled'><a href='$url?page=1$where'><span>&lsaquo;</span></a></li>" : "<li ><a href='$url?page=" . ($page - 1) . "$where'><span>&lsaquo;</span></a></li>";
+    $next = ($page == $totalpage) ? "<li class='disabled'><a href='$url?page=" .$totalpage. "$where'><span>&rsaquo;</span></a></li>" : "<li ><a href='$url?page=" . ($page + 1) . "$where'><span>&rsaquo;</span></a></li>";
     for ($i = 1; $i <= $totalpage; $i ++) {
         if ($i == $page)
-            $str .= "[$i]";
+            $str .= "<li class='active'><a href='$url?page=" . $i . "'>$i</a></li>";
         else {
-            $str .= "<a href='$url?page=" . $i . "'>[$i]</a>";
+            $str .= "<li><a href='$url?page=" . $i . "'>$i</a></li>";
         }
     }
-    $str = $s . "&nbsp" . $index . "&nbsp" . $pre . "&nbsp" . $str . "&nbsp" . $next . "&nbsp" . $last;
+    $formathead = "<nav><ul class='pagination '>";
+    $formatfoot = "</ul></nav>";
+    $str = $formathead.  $index .  $pre .  $str .  $next .  $last . $formatfoot;
     return $str;
 }

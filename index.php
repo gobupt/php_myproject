@@ -1,4 +1,8 @@
-<?php require_once 'include.php';?>
+<?php 
+    require_once 'include.php';
+    $row = gettopnewbynum(5);
+    
+?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -27,14 +31,14 @@
 			</div>
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="index.php">网站首页</a></li>
-				<li><a href="index.php">网站介绍</a></li>
+				<li><a href="introduce.php">网站介绍</a></li>
 			</ul>
 			<ul class="nav navbar-nav">
-				<li><a href="index.php">房屋供应</a></li>
-				<li><a href="index.php">房屋需求</a></li>
+				<li><a href="housesale.php">房屋供应</a></li>
+				<li><a href="houserequest.php">房屋需求</a></li>
 			</ul>
 			<ul class="nav navbar-nav">
-				<li><a href="index.php">留言板</a></li>
+				<li><a href="board.php">留言板</a></li>
 				<li><a href="newslist.php">最新行情</a></li>
 			</ul>
 			<?php if($_SESSION['vipname']||$_SESSION['adminname']||$_COOKIE['adminname']) {$name=$_SESSION['vipname'];?>
@@ -125,7 +129,24 @@
 			<div class="col-md-6">房屋供应</div>
 			<div class="col-md-6">房屋需求</div>
 		</div>
-		<div>新闻</div>
+		<div class="panel panel-info">
+            <div class="panel-heading text-center h1">最新行情</div>
+                <div class="panel-body">
+                    <span class="lead">导言:在刚刚闭幕的中央经济工作会议指出，明年经济社会发展特别是结构性改革任务十分繁重，主要是抓好去产能、去库存、去杠杆、降成本、补短板五大任务。化解房地产库存成为2016年经济工作的五大任务之一，也让外界对2016年房地产市场的发展平添信心。而在“去库存”基调下的诸多具体举措，也将推动房地产行业转型，为经济发展增添新的动力。</span>
+                    <div class="text-right">
+                    <a class="text-right" style="color: black" href="newslist.php">查看更多>></a>
+                    </div>
+                </div>
+            <table class="table table-hover ">
+            <?php if(!empty($row)) { 
+                    foreach ($row as $new) {?>
+            <tr>
+                <td class="text-left"><span class="glyphicon glyphicon-exclamation-sign" style="color: blue"></span>&nbsp;<a href="news.php?id=<?php echo $new['id'];?>" style="color: black"><?php echo $new['title']?></a></td>
+                <td class="text-right"><?php echo date("Y/m/d H:i:s",$new['pubtime']);?></td>
+            </tr>
+            <?php }}?>
+            </table>
+        </div>
 	</div>
 	<!--body-->
 	<nav class="navbar navbar-inverse navbar-fixed-bottom">

@@ -1,3 +1,10 @@
+<?php
+    require_once 'include.php'; 
+    $id=7;
+    $sql = "select name from (select A.id,name from house_admin A,house_board B where A.id=B.pubid) as C where id=$id";
+    $ad=fetchone($sql);
+    print_r($ad);
+?>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>

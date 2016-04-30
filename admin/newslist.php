@@ -11,7 +11,7 @@
     $row2= getallvip();
     $edit = getoneadmin($_SESSION['adminid']);
     /* $row3= getallnew(); */
-    $pagesize=3;
+    $pagesize=5;
     $totalrows=getnewnum();
     $page=$_GET['page']?$_GET['page']:1;
     $totalpage=ceil($totalrows/$pagesize);
@@ -426,7 +426,7 @@
         <h1>新闻列表<small>后台管理</small></h1>
     </div>
     <div class="row ">
-       <div class="col-md-offset-3 col-md-7">
+       <div class="col-md-offset-1 col-md-10">
         <table class="table table-bordered table-hover table-striped ">
             <tr >
                 <th class="text-center">#</th>
@@ -449,8 +449,10 @@
                 </td>
             </tr>
             <?php $k++;}}?>
-            <?php echo showpage($page, $totalpage)?>
         </table>
+        <div class="col-md-offset-5">
+            <?php echo showpage($page, $totalpage)?>
+        </div>
        </div>
     </div>
 	<script src="js/jquery.1.11.3.min.js"></script>
