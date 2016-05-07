@@ -17,3 +17,28 @@ function buildRandomString($type , $length )
     $chars = str_shuffle($chars);
     return substr($chars, 0, $length);
 }
+
+/**
+ * 生成唯一字符串
+ * @return string
+ */
+function getuniname() {
+    return md5(uniqid(microtime(true),true));
+}
+
+/**
+ * 得到文件的扩展名
+ * @param unknown $filename
+ * @return string
+ */
+function getext($filename) {
+    return strtolower(end(explode(".", $filename)));
+}
+
+
+
+
+
+
+
+

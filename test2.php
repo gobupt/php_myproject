@@ -1,4 +1,13 @@
-<?php $content=$_POST['content'];?>
+<?php 
+    require_once 'include.php';
+    print_r(buildinfo());
+    exit;
+    $content=$_POST['content'];
+    $arr=array('');
+    foreach ($arr as $val) {
+        echo $val;
+    }
+?>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -16,7 +25,7 @@
     <div id="content">
         <?php echo $content;?>
     </div>
-    
+    <?php print_r($_FILES);?>
     <script src="js/jquery.1.11.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
   </body>

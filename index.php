@@ -89,9 +89,9 @@
 		<!-- 设置轮播图片 -->
 		<div class="carousel-inner">
 			<div class="item active">
-				<a href="##"><img
+				<a href="##"><img 
 					src="http://www.fwzjw.roboo.com/upload/2015-11-27/1448614947904-11706.png"
-					alt=""></a>
+					alt=""  height="100"></a>
 				<!-- <div class="carousel-caption">
 					<h3>图片标题1</h3>
 					<p>描述内容1...</p>

@@ -52,7 +52,6 @@
 						<li><a href="#addvip" data-toggle="modal">添加会员</a></li>
 						<li><a href="#viplist" data-toggle="modal">会员列表</a></li>
 						<li><a href="#vipedit" data-toggle="modal">编辑会员</a></li>
-						<li><a href="board.php">留言板管理</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">房屋管理<span class="caret"></span></a>

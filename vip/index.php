@@ -43,9 +43,9 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                             <li><a href="#">发布求购信息</a></li>
-                            <li><a href="#">发布求租信息</a></li>
-                            <li><a href="#">发布出售信息</a></li>
-                            <li><a href="#">发布出租信息</a></li>
+                            <li><a href="houseneed.php">发布求租信息</a></li>
+                            <li><a href="housesale.php">发布出售信息</a></li>
+                            <li><a href="houserent.php">发布出租信息</a></li>
                         </ul>
                         </div>
                     </div>
