@@ -38,23 +38,35 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-1">
-				<div class="list-group">
-					<a href="index.php" class="list-group-item active">个人中心</a> 
-					<a href="#" class="list-group-item">房屋列表</a>
-					<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle list-group-item"
-							type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="true">
-							发布信息 <span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-							<li><a href="#">发布求购信息</a></li>
-							<li><a href="#">发布求租信息</a></li>
-							<li><a href="#">发布出售信息</a></li>
-							<li><a href="#">发布出租信息</a></li>
-						</ul>
-					</div>
-				</div>
+                    <div class="list-group">
+                        <a href="index.php" class="list-group-item active">个人中心</a>
+                        <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle list-group-item" type="button" id="" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                        信息列表
+                        <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="housebuylist.php">查看求购信息</a></li>
+                            <li><a href="houseneedlist.php">查看求租信息</a></li>
+                            <li><a href="housesalelist.php">查看出售信息</a></li>
+                            <li><a href="houserentlist.php">查看出租信息</a></li>
+                        </ul>
+                        </div>
+                        <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle list-group-item" type="button" id="" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                        发布信息
+                        <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="housebuy.php">发布求购信息</a></li>
+                            <li><a href="houseneed.php">发布求租信息</a></li>
+                            <li><a href="housesale.php">发布出售信息</a></li>
+                            <li><a href="houserent.php">发布出租信息</a></li>
+                        </ul>
+                        </div>
+                    </div>
 			</div>
 			<div class="col-md-11">
 				<!--body-->

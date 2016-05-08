@@ -38,25 +38,36 @@
 	<div class="container-fluid" style="margin-bottom: 30px">
 		<div class="row">
 			<div class="col-md-1">
-				<div class="list-group">
-					<a href="index.php" class="list-group-item ">个人中心</a> <a href="#"
-						class="list-group-item">房屋列表</a>
-					<div class="dropdown">
-						<button
-							class="btn btn-default dropdown-toggle list-group-item active"
-							type="button" id="" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="true">
-							发布信息 <span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-							<li><a href="#">发布求购信息</a></li>
-							<li><a href="houseneed.php">发布求租信息</a></li>
-							<li><a href="housesale.php">发布出售信息</a></li>
-							<li><a href="houserent.php">发布出租信息</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
+                    <div class="list-group">
+                        <a href="index.php" class="list-group-item ">个人中心</a>
+                        <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle list-group-item" type="button" id="" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                        信息列表
+                        <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="housebuylist.php">查看求购信息</a></li>
+                            <li><a href="houseneedlist.php">查看求租信息</a></li>
+                            <li><a href="housesalelist.php">查看出售信息</a></li>
+                            <li><a href="houserentlist.php">查看出租信息</a></li>
+                        </ul>
+                        </div>
+                        <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle list-group-item active" type="button" id="" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                        发布信息
+                        <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="housebuy.php">发布求购信息</a></li>
+                            <li><a href="houseneed.php">发布求租信息</a></li>
+                            <li><a href="housesale.php">发布出售信息</a></li>
+                            <li><a href="houserent.php">发布出租信息</a></li>
+                        </ul>
+                        </div>
+                    </div>
+            </div>
 			<div class="col-md-11">
 				<!--body-->
 				<div class="page-header text-center">
@@ -65,19 +76,18 @@
 					</h1>
 				</div>
 				<form class="form-horizontal"  action="addhouseneed.handle.php" method="post">
-					<div class="form-group">
-						<label for="title" class="col-md-offset-2 col-md-2 control-label">房源标题</label>
-						<div class="col-md-3">
-							<input type="text" class="form-control" name="title" id="title"
-								placeholder="">
-						</div>
-					</div>
+				    <div class="form-group">
+				        <label for="title" class="col-md-offset-2 col-md-2 control-label h2">基础信息</label>
+				    </div>
 					<div class="form-group">
 						<label for="province"
-							class="col-md-offset-2 col-md-2 control-label">地址</label>
+							class="col-md-offset-2 col-md-2 control-label">
+							<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+							求租地段
+							</label>
 						<div class="col-md-1">
 							<input type="text" class="form-control" name="province"
-								id="province" placeholder="省">
+								id="province" placeholder="省(选填)">
 						</div>
 						<div class="col-md-1">
 							<input type="text" class="form-control" name="city" id="city"
@@ -97,26 +107,49 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="price" class="col-md-offset-2 col-md-2 control-label">租金</label>
-						<div class="col-md-1">
-							<input type="text" class="form-control" name="price" id="price"
-								placeholder="">
+						<label for="rent" class="col-md-offset-2 col-md-2 control-label">
+						<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+						租金
+						</label>
+						<div class="col-md-2">
+							<select class="form-control" name="rent">
+								<option value="1">500-1000</option>
+								<option value="2">1000-2000</option>
+								<option value="3">2000-3000</option>
+								<option value="4">3000-4000</option>
+								<option value="5">4000-5000</option>
+								<option value="6">5000-6000</option>
+								<option value="7">6000-7000</option>
+								<option value="8">7000-8000</option>
+								<option value="9">8000-9000</option>
+								<option value="10">9000-10000</option>
+								<option value="11">1万元以上</option>
+							</select>
 						</div>
 						<div class="col-md-4">
-							<p class="form-control-static">元/月(左右)</p>
+							<p class="form-control-static " style="color: red">元/月</p>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="name" class="col-md-offset-2 col-md-2 control-label">姓名</label>
+						<label class="col-md-offset-2 col-md-2 control-label">
+						<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+						入住时间
+						</label>
 						<div class="col-md-2">
-							<input type="text" class="form-control" name="name" id="name"
-								placeholder="">
+							<input type="date" class="form-control" name="time" id="time">
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="phone" class="col-md-offset-2 col-md-2 control-label">联系电话</label>
-						<div class="col-md-2">
-							<input type="text" class="form-control" name="phone" id="phone"
+				
+				    <div class="form-group">
+				        <label for="title" class="col-md-offset-2 col-md-2 control-label h2">补充信息</label>
+				    </div>
+				    <div class="form-group">
+						<label for="title" class="col-md-offset-2 col-md-2 control-label">
+						<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+						标题
+						</label>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="title" id="title"
 								placeholder="">
 						</div>
 					</div>
@@ -125,6 +158,30 @@
 							class="col-md-offset-2 col-md-2 control-label">补充说明</label>
 						<div class="col-md-4">
 							<textarea class="form-control" name="content" id="content" rows="10"></textarea>
+						</div>
+					</div>
+				
+				    <div class="form-group">
+				        <label for="title" class="col-md-offset-2 col-md-2 control-label h2">重要信息</label>
+				    </div>
+					<div class="form-group">
+						<label for="name" class="col-md-offset-2 col-md-2 control-label">
+						<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+						姓名
+						</label>
+						<div class="col-md-2">
+							<input type="text" class="form-control" name="name" id="name"
+								placeholder="">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="phone" class="col-md-offset-2 col-md-2 control-label">
+						<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+						联系电话
+						</label>
+						<div class="col-md-2">
+							<input type="text" class="form-control" name="phone" id="phone"
+								placeholder="">
 						</div>
 					</div>
 					<div class="form-group">
