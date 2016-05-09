@@ -1,6 +1,6 @@
 <?php 
     require_once 'include.php';
-    print_r(buildinfo());
+    print_r($_POST);
     exit;
     $content=$_POST['content'];
     $arr=array('');

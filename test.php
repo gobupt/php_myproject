@@ -23,13 +23,15 @@
 		<script id="container" name="content" type="text/plain">
         
         </script>
-		
-		<div class="form-group">
-			Select images: <input type="file" name="img[]" multiple="multiple" />
-		
-		</div>
-		<input type="date" name="hehe">
-        <button type="submit">提交</button>
+
+		<label class="checkbox-inline"> <input type="checkbox"
+			id="inlineCheckbox1" value="option1" name="c1[]"> 1
+		</label> <label class="checkbox-inline"> <input type="checkbox"
+			id="inlineCheckbox2" value="option2" name="c1[]"> 2
+		</label> <label class="checkbox-inline"> <input type="checkbox"
+			id="inlineCheckbox3" value="option3" name="c1[]"> 3
+		</label>
+		<input type="submit" placeholder="">
 	</form>
 
 	<script type="text/javascript" src="./UEditor/ueditor.config.js"></script>

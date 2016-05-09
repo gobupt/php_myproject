@@ -31,3 +31,76 @@ function addhouse($table,$array,$cate) {
         return false;
     }
 }
+/**
+ * 修改房屋
+ * @param unknown $table
+ * @param unknown $array
+ * @param unknown $cate
+ * @param unknown $hid
+ * @return boolean
+ */
+function edithouse($table, $array,$cate,$hid) {
+    if(update($table, $array,"id=$hid")) {
+        $uploadfiles=upload();
+        if(is_array($uploadfiles)&&$uploadfiles) {
+            foreach ($uploadfiles as $uploadfile) {
+                thumb("uploads/".$uploadfile['name'],"../images_listthumb/".$uploadfile['name'],1,275,207);
+                thumb("uploads/".$uploadfile['name'],"../images_detail/".$uploadfile['name'],1,722,542);
+                thumb("uploads/".$uploadfile['name'],"../images_detailthumb/".$uploadfile['name'],1,94,62);
+                thumb("uploads/".$uploadfile['name'],"../images_homethumb/".$uploadfile['name'],1,207,138);
+                $arr1['hid']=$hid;
+                $arr1['albumpath']=$uploadfile['name'];
+                $arr1['cate']=$cate;
+                addalbum($arr1);
+            }
+        }
+        return true;
+    }else {
+        return false;
+    }
+} 
+/**
+ * 获得房屋购买的数据条数
+ * @return number
+ */
+function gethousenum($table,$where=null) {
+    $where= ($where)? "where $where" : null;
+    $sql = "select * from $table $where";
+    return getresultnum($sql);
+}
+
+/**
+ * 通过分页获得房屋信息
+ * @param unknown $pagesize
+ * @param unknown $page
+ * @param unknown $totalpage
+ * @return Ambigous <Ambigous, multitype:>
+ */
+function gethousebypage($pagesize, $page, $totalpage,$table,$where=null) {
+    $where= ($where)? "where $where" : null;
+    $offset = ($page-1)*$pagesize;
+    $sql = "select * from $table $where order by pubtime desc limit $offset,$pagesize";
+    $row3 = fetchall($sql);
+    return $row3;
+}
+
+/**
+ * 通过ID获得一条记录
+ * @param unknown $id
+ * @return Ambigous <multitype:, multitype:>
+ */
+function getonehouse($id,$table) {
+    $sql ="select * from $table where id=$id";
+    return fetchone($sql);
+}
+
+
+
+
+
+
+
+
+
+
+

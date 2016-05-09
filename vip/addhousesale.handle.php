@@ -2,6 +2,7 @@
 require_once '../include.php';
 $array=$_POST;
 $array['pubtime']=time();
+$array['vid']=$_SESSION['vipid'];
 $table="house_sale";
 if($array['title']&&$array['community']&&$array['city']&&$array['county']&&$array['town']&&$array['address']&&$array['room']&&$array['hall']&&$array['toilet']&&$array['area']&&$array['price']&&$array['name']&&$array['phone']&&$array['structure']) {
     if($array['time']) {
@@ -9,11 +10,11 @@ if($array['title']&&$array['community']&&$array['city']&&$array['county']&&$arra
             alertmes("请输入有效年份(1901-2016)", "housesale.php");
         else {
             if(addhouse($table, $array,"sale"))
-                alertmes("发布成功!", "houselist.php");
+                alertmes("发布成功!", "housesalelist.php");
         }
     }else {
         if(addhouse($table, $array,"sale"))
-            alertmes("发布成功!", "houselist.php");
+            alertmes("发布成功!", "housesalelist.php");
     }
         
 }else 

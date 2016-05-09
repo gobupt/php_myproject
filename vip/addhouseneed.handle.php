@@ -2,10 +2,11 @@
 require_once '../include.php';
 $table="house_need";
 $array=$_POST;
+$array['vid']=$_SESSION['vipid'];
 $array['pubtime']=time();
 if($array['city'] && $array['county'] && $array['town'] && $array['address'] && $array['rent'] && $array['time'] && $array['title'] && $array['name'] && $array['phone']) { 
     if(insert($table, $array))
-        alertmes("发布成功", "houselist.php");
+        alertmes("发布成功", "houseneedlist.php");
     else 
         alertmes("发布失败", "houseneed.php");
 }else {
