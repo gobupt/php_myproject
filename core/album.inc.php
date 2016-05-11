@@ -18,13 +18,13 @@ function addalbum($array) {
  * @return Ambigous <Ambigous, multitype:>
  */
 function getallimgbyhid($hid,$cate=null) {
-    $cate = ($cate)? "cate=$cate" :null;
-    $sql = "select * from house_album where hid=$hid,$cate";
+    $cate = ($cate)? "cate='$cate'" :null;
+    $sql = "select * from house_album where hid=$hid and $cate";
     return fetchall($sql);
 }
 
 function getoneimgbyid($id,$cate=null) {
-    $cate = ($cate)? "cate=$cate" :null;
-    $sql = "select * from house_album where id=$id,$cate";
+    $cate = ($cate)? "cate='$cate'" :null;
+    $sql = "select * from house_album where id=$id and $cate";
     return fetchone($sql);
 }

@@ -188,10 +188,10 @@
 						</label>
 						<div class="col-md-2">
 							<select class="form-control" name="property">
-								<option>私产平房</option>
-								<option>已购公房</option>
-								<option>经济适用房</option>
-								<option>商品房</option>
+								<option value="私产平房">私产平房</option>
+								<option value="已购公房">已购公房</option>
+								<option value="经济适用房">经济适用房</option>
+								<option value="商品房">商品房</option>
 							</select>
 						</div>
 					</div>

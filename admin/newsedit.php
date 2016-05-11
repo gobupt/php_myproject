@@ -55,10 +55,12 @@
 						<li><a href="#vipedit" data-toggle="modal">编辑会员</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown">房屋管理<span class="caret"></span></a>
+					data-toggle="dropdown">房屋列表<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="house.php">发布房屋</a></li>
-						<li><a href="houselist.php">房屋列表</a></li>
+						<li><a href="housebuylist.php">求购信息</a></li>
+						<li><a href="houseneedlist.php">求租信息</a></li>
+						<li><a href="housesalelist.php">出售信息</a></li>
+						<li><a href="houserentlist.php">出租信息</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">新闻管理<span class="caret"></span></a>

@@ -1,6 +1,7 @@
  <?php
 function showpage($page, $totalpage, $where = NULL)
-{
+{   
+    if(!$totalpage) return ;
     $where = ($where==null)?null:"&".$where;
     $url = $_SERVER['PHP_SELF'];
     $index = ($page == 1) ? "<li class='disabled'><a href='$url?page=1$where'><span>&laquo</span></a></li>" : "<li><a href='$url?page=1$where'><span>&laquo</span></a></li>";
