@@ -46,7 +46,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a data-toggle="modal" href="#addad">添加管理员</a></li>
 						<li><a data-toggle="modal" href="#addlist">管理员列表</a></li>
-						<li><a data-toggle="modal" href="#addedit">编辑个人资料</a>
+						<li><a data-toggle="modal" href="#addedit">编辑个人资料</a></li>
 					
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"

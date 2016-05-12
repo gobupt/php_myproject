@@ -4,7 +4,7 @@ $array=$_POST;
 $array['pubtime']=time();
 $array['vid']=$_SESSION['vipid'];
 $table="house_rent";
-if($array['title']&&$array['community']&&$array['city']&&$array['county']&&$array['town']&&$array['address']&&$array['room']&&$array['hall']&&$array['toilet']&&$array['area']&&$array['rent']&&$array['time']&&$array['name']&&$array['phone']) {
+if($_FILES['image']['tmp_name']['0']&&$array['title']&&$array['community']&&$array['city']&&$array['county']&&$array['town']&&$array['address']&&$array['room']&&$array['hall']&&$array['toilet']&&$array['area']&&$array['rent']&&$array['time']&&$array['name']&&$array['phone']) {
     if(addhouse($table, $array,"rent"))
         alertmes("发布成功!", "houserentlist.php");
 }else 

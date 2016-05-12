@@ -42,16 +42,24 @@ function addhouse($table,$array,$cate) {
 function edithouse($table, $array,$cate,$hid) {
     if(update($table, $array,"id=$hid")) {
         $uploadfiles=upload();
+        $i=0;
         if(is_array($uploadfiles)&&$uploadfiles) {
             foreach ($uploadfiles as $uploadfile) {
                 thumb("uploads/".$uploadfile['name'],"../images_listthumb/".$uploadfile['name'],1,275,207);
                 thumb("uploads/".$uploadfile['name'],"../images_detail/".$uploadfile['name'],1,722,542);
                 thumb("uploads/".$uploadfile['name'],"../images_detailthumb/".$uploadfile['name'],1,94,62);
                 thumb("uploads/".$uploadfile['name'],"../images_homethumb/".$uploadfile['name'],1,207,138);
-                $arr1['hid']=$hid;
-                $arr1['albumpath']=$uploadfile['name'];
-                $arr1['cate']=$cate;
-                addalbum($arr1);
+                if(!$i&&$_FILES['image_index']['tmp_name']) {
+                    $arr1=getoneimgbyhid($hid,$cate);
+                    $arr1['albumpath']=$uploadfile['name'];
+                    updatealbum($arr1,$arr1['id']);
+                }else {
+                    $arr2['hid']=$hid;
+                    $arr2['albumpath']=$uploadfile['name'];
+                    $arr2['cate']=$cate;
+                    addalbum($arr2);
+                }
+                $i++;
             }
         }
         return true;
@@ -60,7 +68,7 @@ function edithouse($table, $array,$cate,$hid) {
     }
 } 
 /**
- * 获得房屋购买的数据条数
+ * 获得房屋的数据条数
  * @return number
  */
 function gethousenum($table,$where=null) {
@@ -94,7 +102,11 @@ function getonehouse($id,$table) {
     return fetchone($sql);
 }
 
-
+function gettophousebynum($num,$table) {
+    $sql = "select * from $table order by pubtime desc limit 0,$num";
+    $row = fetchall($sql);
+    return $row;
+}
 
 
 

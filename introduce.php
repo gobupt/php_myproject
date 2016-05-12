@@ -30,8 +30,20 @@
 				<li class="active"><a href="introduce.php">网站介绍</a></li>
 			</ul>
 			<ul class="nav navbar-nav">
-				<li><a href="housesale.php">房屋供应</a></li>
-				<li><a href="houserequest.php">房屋需求</a></li>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown">房屋供应<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="housesalelist.php">房屋出售</a></li>
+						<li><a href="houserentlist.php">房屋出租</a></li>
+					</ul></li>
+			</ul>
+			<ul class="nav navbar-nav">
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown">房屋需求<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="housebuylist.php">房屋求购</a></li>
+						<li><a href="houseneedlist.php">新闻求租</a></li>
+					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav">
 				<li><a href="board.php">留言板</a></li>

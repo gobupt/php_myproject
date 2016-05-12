@@ -4,16 +4,14 @@
  * @return unknown
  */
 function buildinfo() {
-    foreach ($_FILES as $v) {
-          if(empty($v['tmp_name'][0]))
-             return ; 
-    }
     $i = 0;
     foreach ($_FILES as $v) {
         if(is_string($v['name'])) {
+            if(!$v['tmp_name']) continue;
             $files[$i]=$v;
         }else {
             foreach ($v['name'] as $key=>$val) {
+                if(!$val) continue;
                 $files[$i]['name']=$val;
                 $files[$i]['size']=$v['size'][$key];
                 $files[$i]['tmp_name']=$v['tmp_name'][$key];

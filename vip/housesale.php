@@ -233,6 +233,16 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label for=""
+							class="col-md-offset-2 col-md-2 control-label">
+							<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+							上传展示图</label>
+						<div class="col-md-2">
+							<input type="file" class="form-control" name="image[]"
+								id="image" multiple="multiple">
+						</div>
+					</div>
+					<div class="form-group">
 						<label for="" class="col-md-offset-2 col-md-2 control-label">
 						上传图片
 						</label>
