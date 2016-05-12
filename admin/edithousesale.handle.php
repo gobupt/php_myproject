@@ -22,7 +22,6 @@ $array=array(
     "content"=>$_POST['content']
 );
 $array['pubtime']=time();
-$array['vid']=$_SESSION['vipid'];
 $table="house_sale";
 $hid=$_POST['hid'];
 if($array['title']&&$array['community']&&$array['city']&&$array['county']&&$array['town']&&$array['address']&&$array['room']&&$array['hall']&&$array['toilet']&&$array['area']&&$array['price']&&$array['time']&&$array['name']&&$array['structure']&&$array['phone']) {
@@ -36,8 +35,8 @@ if($array['title']&&$array['community']&&$array['city']&&$array['county']&&$arra
             if($imgs && is_array($imgs)) {
                 foreach ($imgs as $imgid) {
                     $houseimg=getoneimgbyid($imgid,"sale"); 
-                    if (file_exists("../admin/uploads/" . $houseimg['albumpath'])) {
-                        unlink("../admin/uploads/" . $houseimg['albumpath']);
+                    if (file_exists("../vip/uploads/" . $houseimg['albumpath'])) {
+                        unlink("../vip/uploads/" . $houseimg['albumpath']);
                     }
                     if (file_exists("uploads/" . $houseimg['albumpath'])) {
                         unlink("uploads/" . $houseimg['albumpath']);

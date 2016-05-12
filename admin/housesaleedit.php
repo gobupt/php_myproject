@@ -10,11 +10,9 @@
     $row = getalladmin();
     $row2= getallvip();
     $edit = getoneadmin($_SESSION['adminid']);
-    $pagesize=5;
-    $totalrows=gethousenum("house_rent");
-    $page=$_GET['page']?$_GET['page']:1;
-    $totalpage=ceil($totalrows/$pagesize);
-    $row3 = gethousebypage($pagesize, $page, $totalpage,"house_rent");
+    $hid = $_GET['id'];
+    $sale = getonehouse($hid,"house_sale");
+    $imgs = getallimgbyhid($sale['id'],"sale");
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -85,43 +83,208 @@
 	</nav>
 	<div class="page-header text-center">
 					<h1>
-						查看出租信息<small>信息列表</small>
+						编辑出售房源<small>编辑信息</small>
 					</h1>
 				</div>
-				<div class="row">
-					<div class="col-md-offset-1 col-md-10">
-						<table class="table table-bordered table-hover table-striped ">
-							<tr>
-								<th class="text-center" style="width: 100px">#</th>
-					            <th class="text-center" style="width: 400px">发布者</th>
-					            <th class="text-center">标题</th>
-					            <th class="text-center" style="width: 200px">发布时间</th>
-					            <th class="text-center" style="width: 200px">操作</th>
-							</tr>
-							<?php
-                            if ($row3) {
-                                $k = ($page - 1) * $pagesize + 1;
-                                foreach ($row3 as $v) {
-                                $vip=getonevip($v['vid']);
-                            ?>
-                            <tr>
-								<td class="text-center"><?php echo $k;?></td>
-								<td class="text-center"><?php echo $vip['username'];?></td>
-								<td class="text-center"><?php echo $v['title'];?></td>
-								<td class="text-center"><?php echo date("Y/m/d H:i:s",$v['pubtime']);?></td>
-								<td class="text-center"><a class="btn btn-info btn-xs"
-									href="houserentedit.php?id=<?php echo $v['id'];?>">编辑</a> &nbsp;
-									&nbsp; <a class="btn btn-danger btn-xs"
-									href="houserentdel.handle.php?id=<?php echo $v['id'];?>">删除</a></td>
-							</tr>
-							<?php $k++;}
-							    }?>
-                        </table>
-						<div class="col-md-offset-5">
-                        <?php echo showpage($page, $totalpage)?>
-                        </div>
-				</div>
-				</div>
+				<form class="form-horizontal" enctype="multipart/form-data" action="edithousesale.handle.php" method="post">
+				    <input type="hidden" name="hid" value="<?php echo $hid?>">
+					<div class="form-group">
+						<label for="title" class="col-md-offset-2 col-md-2 control-label">
+						<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+						房源标题</label>
+						<div class="col-md-3">
+							<input type="text" class="form-control" name="title" id="title"
+								placeholder="" value="<?php echo $sale['title'];?>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="community"
+							class="col-md-offset-2 col-md-2 control-label">
+							<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+							小区名称</label>
+						<div class="col-md-2">
+							<input type="text" class="form-control" name="community"
+								id="community" placeholder="" value="<?php echo $sale['community'];?>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="province"
+							class="col-md-offset-2 col-md-2 control-label">
+							<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+							地址</label>
+						<div class="col-md-1">
+							<input type="text" class="form-control" name="province"
+								id="province" placeholder="省(选填)" value="<?php echo $sale['province'];?>">
+						</div>
+						<div class="col-md-1">
+							<input type="text" class="form-control" name="city" id="city"
+								placeholder="市" value="<?php echo $sale['city'];?>">
+						</div>
+						<div class="col-md-1">
+							<input type="text" class="form-control" name="county" id="county"
+								placeholder="区/县" value="<?php echo $sale['county'];?>">
+						</div>
+						<div class="col-md-1">
+							<input type="text" class="form-control" name="town" id="town"
+								placeholder="镇/街道" value="<?php echo $sale['town'];?>">
+						</div>
+						<div class="col-md-2">
+							<input type="text" class="form-control" name="address"
+								id="address" placeholder="详细地址" value="<?php echo $sale['address'];?>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="room"
+							class="col-md-offset-2 col-md-2 control-label">
+							<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+							户型</label>
+						<div class="col-md-1">
+							<input type="text" class="form-control" name="room"
+								id="room" placeholder="室" value="<?php echo $sale['room'];?>">
+						</div>
+						<div class="col-md-1">
+							<input type="text" class="form-control" name="hall" id="hall"
+								placeholder="厅" value="<?php echo $sale['hall'];?>">
+						</div>
+						<div class="col-md-1">
+							<input type="text" class="form-control" name="toilet" id="toilet"
+								placeholder="卫" value="<?php echo $sale['toilet'];?>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="area" class="col-md-offset-2 col-md-2 control-label">
+						<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+						房屋面积</label>
+						<div class="col-md-1">
+							<input type="text" class="form-control" name="area" id="area"
+								placeholder="" value="<?php echo $sale['area'];?>">
+						</div>
+						<div class="col-md-4">
+							<p class="form-control-static">平方米</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-offset-2 col-md-2 control-label">
+						<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+						装修程度</label>
+						<div class="col-md-2">
+							<select class="form-control" name="decoration">
+								<option value="精装修" <?php if($sale['decoration']=="精装修") echo 'selected="selected"';?>>精装修</option>
+								<option value="中等装修" <?php if($sale['decoration']=="中等装修") echo 'selected="selected"';?>>中等装修</option>
+								<option value="简装修" <?php if($sale['decoration']=="简装修") echo 'selected="selected"';?>>简装修</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+					   <label class="col-md-offset-2 col-md-2 control-label">
+					   <span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+					   结构
+					   </label>
+					      <div class="col-md-4">
+					       <label class="radio-inline"> 
+					           <input type="radio" name="structure" id="inlineRadio1" value="平层" <?php if($sale['structure']=="平层") echo ' checked="checked"';?>> 平层
+					       </label> 
+					       <label class="radio-inline"> 
+					           <input type="radio" name="structure" id="inlineRadio2" value="复式" <?php if($sale['structure']=="复式") echo ' checked="checked"';?>> 复式
+					       </label> 
+					       <label class="radio-inline"> 
+					           <input type="radio" name="structure" id="inlineRadio3" value="板楼" <?php if($sale['structure']=="板楼") echo ' checked="checked"';?>> 板楼
+					       </label>
+					      </div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-offset-2 col-md-2 control-label">
+						<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+						产权性质</label>
+						<div class="col-md-2">
+							<select class="form-control" name="property">
+								<option value="私产平房" <?php if($sale['property']=="私产平房") echo 'selected="selected"';?>>私产平房</option>
+								<option value="已购公房" <?php if($sale['property']=="已购公房") echo 'selected="selected"';?>>已购公房</option>
+								<option value="经济适用房" <?php if($sale['property']=="经济适用房") echo 'selected="selected"';?>>经济适用房</option>
+								<option value="商品房" <?php if($sale['property']=="商品房") echo 'selected="selected"';?>>商品房</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="price" class="col-md-offset-2 col-md-2 control-label">
+						<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>总价
+						</label>
+						<div class="col-md-1">
+							<input type="text" class="form-control" name="price" id="price"
+								placeholder="" value="<?php echo $sale['price'];?>">
+						</div>
+						<div class="col-md-4">
+							<p class="form-control-static">万</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="time" class="col-md-offset-2 col-md-2 control-label">建成年代</label>
+						<div class="col-md-2">
+							<input type="text" class="form-control" name="time" id="time" value="<?php echo $sale['time'];?>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-md-offset-2 col-md-2 control-label">
+						<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+						姓名</label>
+						<div class="col-md-2">
+							<input type="text" class="form-control" name="name"
+								id="name" placeholder="" value="<?php echo $sale['name'];?>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="phone"
+							class="col-md-offset-2 col-md-2 control-label">
+							<span class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+							联系电话</label>
+						<div class="col-md-2">
+							<input type="text" class="form-control" name="phone"
+								id="phone" placeholder="" value="<?php echo $sale['phone'];?>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for=""
+							class="col-md-offset-2 col-md-2 control-label">
+							已上传图片(删除)</label>
+						<div class="col-md-8">
+						    <?php
+						    if(!$imgs) echo "<p class='form-control-static'>暂未上传图片</p>";
+						    if($imgs&&is_array($imgs)) {
+						        $count=0;
+						    foreach ($imgs as $img) {$count++;?>
+						    <label class="checkbox-inline">
+						    <input type="checkbox" name="delimage[]" value="<?php echo $img['id'];?>"> 
+							<img src="<?php echo "../images_homethumb/{$img['albumpath']}";?>" alt="" class="img-rounded">
+							</label>
+							<?php if($count==4)  {echo "<br>";$count=0;}
+						    }
+						    }?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for=""
+							class="col-md-offset-2 col-md-2 control-label">
+							上传图片</label>
+						<div class="col-md-2">
+							<input type="file" class="form-control" name="image[]"
+								id="image" multiple="multiple">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="content" class="col-md-offset-2 col-md-2 control-label">房源描述</label>
+						<div class="col-md-5">
+							<script id="container" name="content" type="text/plain"><?php echo $sale['content'];?></script>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-4 control-label">
+						  <button class="btn btn-primary" type="submit">编辑</button>
+						</label> 
+						<label class="col-md-offset-3 control-label">
+						  <button class="btn btn-warning" type="reset">重置</button>
+						</label>
+					</div>
+			    </form>
 	<!-- 触发addad -->
 	<div class="modal" tabindex="-1" role="dialog"
 		aria-labelledby="myLargeModalLabel" aria-hidden="true" id="addad">
@@ -464,7 +627,11 @@
 		</div>
 	</div>
 	<!-- 触发editvip-->
-
+    <script type="text/javascript" src="../UEditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="../UEditor/ueditor.all.js"></script>
+    <script type="text/javascript">
+        var ue = UE.getEditor('container');
+    </script>
 	<script src="js/jquery.1.11.3.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

@@ -7,6 +7,9 @@ delete($table,$where);
 $houseimgs=getallimgbyhid($id,"rent");
 if($houseimgs&&is_array($houseimgs)) {
     foreach ($houseimgs as $houseimg) {
+        if (file_exists("../admin/uploads/" . $houseimg['albumpath'])) {
+            unlink("../admin/uploads/" . $houseimg['albumpath']);
+        }
         if (file_exists("uploads/" . $houseimg['albumpath'])) {
                 unlink("uploads/" . $houseimg['albumpath']);
         }

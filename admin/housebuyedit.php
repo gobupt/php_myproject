@@ -10,11 +10,8 @@
     $row = getalladmin();
     $row2= getallvip();
     $edit = getoneadmin($_SESSION['adminid']);
-    $pagesize=5;
-    $totalrows=gethousenum("house_rent");
-    $page=$_GET['page']?$_GET['page']:1;
-    $totalpage=ceil($totalrows/$pagesize);
-    $row3 = gethousebypage($pagesize, $page, $totalpage,"house_rent");
+    $id = $_GET['id'];
+    $buy = getonehouse($id,"house_buy");
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -84,44 +81,151 @@
 		</div>
 	</nav>
 	<div class="page-header text-center">
-					<h1>
-						查看出租信息<small>信息列表</small>
-					</h1>
-				</div>
-				<div class="row">
-					<div class="col-md-offset-1 col-md-10">
-						<table class="table table-bordered table-hover table-striped ">
-							<tr>
-								<th class="text-center" style="width: 100px">#</th>
-					            <th class="text-center" style="width: 400px">发布者</th>
-					            <th class="text-center">标题</th>
-					            <th class="text-center" style="width: 200px">发布时间</th>
-					            <th class="text-center" style="width: 200px">操作</th>
-							</tr>
-							<?php
-                            if ($row3) {
-                                $k = ($page - 1) * $pagesize + 1;
-                                foreach ($row3 as $v) {
-                                $vip=getonevip($v['vid']);
-                            ?>
-                            <tr>
-								<td class="text-center"><?php echo $k;?></td>
-								<td class="text-center"><?php echo $vip['username'];?></td>
-								<td class="text-center"><?php echo $v['title'];?></td>
-								<td class="text-center"><?php echo date("Y/m/d H:i:s",$v['pubtime']);?></td>
-								<td class="text-center"><a class="btn btn-info btn-xs"
-									href="houserentedit.php?id=<?php echo $v['id'];?>">编辑</a> &nbsp;
-									&nbsp; <a class="btn btn-danger btn-xs"
-									href="houserentdel.handle.php?id=<?php echo $v['id'];?>">删除</a></td>
-							</tr>
-							<?php $k++;}
-							    }?>
-                        </table>
-						<div class="col-md-offset-5">
-                        <?php echo showpage($page, $totalpage)?>
-                        </div>
-				</div>
-				</div>
+		<h1>
+			编辑房屋求购<small>编辑信息</small>
+		</h1>
+	</div>
+	<form class="form-horizontal" action="edithousebuy.handle.php"
+		method="post">
+		<input type="hidden" name="id" value="<?php echo $id?>">
+		<div class="form-group">
+			<label for="title" class="col-md-offset-2 col-md-2 control-label h2">基础信息</label>
+		</div>
+		<div class="form-group">
+			<label for="province" class="col-md-offset-2 col-md-2 control-label">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"
+				style="color: red"></span> 求购地段
+			</label>
+			<div class="col-md-1">
+				<input type="text" class="form-control" name="province"
+					id="province" placeholder="省(选填)"
+					value="<?php echo $buy['province'];?>">
+			</div>
+			<div class="col-md-1">
+				<input type="text" class="form-control" name="city" id="city"
+					placeholder="市" value="<?php echo $buy['city'];?>">
+			</div>
+			<div class="col-md-1">
+				<input type="text" class="form-control" name="county" id="county"
+					placeholder="区/县" value="<?php echo $buy['county'];?>">
+			</div>
+			<div class="col-md-1">
+				<input type="text" class="form-control" name="town" id="town"
+					placeholder="镇/街道" value="<?php echo $buy['town'];?>">
+			</div>
+			<div class="col-md-2">
+				<input type="text" class="form-control" name="address" id="address"
+					placeholder="详细地址" value="<?php echo $buy['address'];?>">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="price" class="col-md-offset-2 col-md-2 control-label"> <span
+				class="glyphicon glyphicon-star" aria-hidden="true"
+				style="color: red"></span> 期望价格
+			</label>
+			<div class="col-md-2">
+				<select class="form-control" name="price">
+					<option value="1"
+						<?php if($buy['price']==1) echo 'selected="selected"';?>>50以下</option>
+					<option value="2"
+						<?php if($buy['price']==2) echo 'selected="selected"';?>>50-80</option>
+					<option value="3"
+						<?php if($buy['price']==3) echo 'selected="selected"';?>>80-100</option>
+					<option value="4"
+						<?php if($buy['price']==4) echo 'selected="selected"';?>>100-120</option>
+					<option value="5"
+						<?php if($buy['price']==5) echo 'selected="selected"';?>>120-150</option>
+					<option value="6"
+						<?php if($buy['price']==6) echo 'selected="selected"';?>>150-200</option>
+					<option value="7"
+						<?php if($buy['price']==7) echo 'selected="selected"';?>>200以上</option>
+				</select>
+			</div>
+			<div class="col-md-4">
+				<p class="form-control-static " style="color: red">万元</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="area" class="col-md-offset-2 col-md-2 control-label"> <span
+				class="glyphicon glyphicon-star" aria-hidden="true"
+				style="color: red"></span> 期望面积
+			</label>
+			<div class="col-md-2">
+				<select class="form-control" name="area">
+					<option value="1"
+						<?php if($buy['area']==1) echo 'selected="selected"';?>>50以下</option>
+					<option value="2"
+						<?php if($buy['area']==2) echo 'selected="selected"';?>>50-70</option>
+					<option value="3"
+						<?php if($buy['area']==3) echo 'selected="selected"';?>>70-90</option>
+					<option value="4"
+						<?php if($buy['area']==4) echo 'selected="selected"';?>>90-120</option>
+					<option value="5"
+						<?php if($buy['area']==5) echo 'selected="selected"';?>>120-150</option>
+					<option value="6"
+						<?php if($buy['area']==6) echo 'selected="selected"';?>>150-200</option>
+					<option value="7"
+						<?php if($buy['area']==7) echo 'selected="selected"';?>>200-500</option>
+					<option value="8"
+						<?php if($buy['area']==8) echo 'selected="selected"';?>>500以上</option>
+				</select>
+			</div>
+			<div class="col-md-4">
+				<p class="form-control-static " style="color: red">㎡</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="title" class="col-md-offset-2 col-md-2 control-label h2">补充信息</label>
+		</div>
+		<div class="form-group">
+			<label for="title" class="col-md-offset-2 col-md-2 control-label"> <span
+				class="glyphicon glyphicon-star" aria-hidden="true"
+				style="color: red"></span> 标题
+			</label>
+			<div class="col-md-3">
+				<input type="text" class="form-control" name="title" id="title"
+					placeholder="" value="<?php echo $buy['title'];?>">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="content" class="col-md-offset-2 col-md-2 control-label">补充说明</label>
+			<div class="col-md-4">
+				<textarea class="form-control" name="content" id="content" rows="10"><?php echo $buy['content'];?></textarea>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="title" class="col-md-offset-2 col-md-2 control-label h2">重要信息</label>
+		</div>
+		<div class="form-group">
+			<label for="name" class="col-md-offset-2 col-md-2 control-label"> <span
+				class="glyphicon glyphicon-star" aria-hidden="true"
+				style="color: red"></span> 姓名
+			</label>
+			<div class="col-md-2">
+				<input type="text" class="form-control" name="name" id="name"
+					placeholder="" value="<?php echo $buy['name'];?>">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="phone" class="col-md-offset-2 col-md-2 control-label"> <span
+				class="glyphicon glyphicon-star" aria-hidden="true"
+				style="color: red"></span> 联系电话
+			</label>
+			<div class="col-md-2">
+				<input type="text" class="form-control" name="phone" id="phone"
+					placeholder="" value="<?php echo $buy['phone'];?>">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-4 control-label">
+				<button class="btn btn-primary" type="submit">编辑</button>
+			</label> <label class="col-md-offset-3 control-label">
+				<button class="btn btn-warning" type="reset">重置</button>
+			</label>
+		</div>
+	</form>
 	<!-- 触发addad -->
 	<div class="modal" tabindex="-1" role="dialog"
 		aria-labelledby="myLargeModalLabel" aria-hidden="true" id="addad">
