@@ -51,6 +51,24 @@ function edithouse($table, $array,$cate,$hid) {
                 thumb("uploads/".$uploadfile['name'],"../images_homethumb/".$uploadfile['name'],1,207,138);
                 if(!$i&&$_FILES['image_index']['tmp_name']) {
                     $arr1=getoneimgbyhid($hid,$cate);
+                    if (file_exists("../admin/uploads/" . $arr1['albumpath'])) {
+                        unlink("../admin/uploads/" . $arr1['albumpath']);
+                    }
+                    if (file_exists("uploads/" . $arr1['albumpath'])) {
+                        unlink("uploads/" . $arr1['albumpath']);
+                    }
+                    if (file_exists("../images_detail/" . $arr1['albumpath'])) {
+                        unlink("../images_detail/" . $arr1['albumpath']);
+                    }
+                    if (file_exists("../images_detailthumb/" . $arr1['albumpath'])) {
+                        unlink("../images_detailthumb/" . $arr1['albumpath']);
+                    }
+                    if (file_exists("../images_homethumb/" . $arr1['albumpath'])) {
+                        unlink("../images_homethumb/" . $arr1['albumpath']);
+                    }
+                    if (file_exists("../images_listthumb/" . $arr1['albumpath'])) {
+                        unlink("../images_listthumb/" . $arr1['albumpath']);
+                    }
                     $arr1['albumpath']=$uploadfile['name'];
                     updatealbum($arr1,$arr1['id']);
                 }else {
