@@ -210,7 +210,7 @@
 							上传展示图</label>
 						<div class="col-md-2">
 							<input type="file" class="form-control" name="image[]"
-								id="image" multiple="multiple">
+								id="image" >
 						</div>
 					</div>
 					<div class="form-group">

@@ -1,4 +1,32 @@
-<?php require_once 'include.php';?>
+<?php 
+    require_once 'include.php';
+    $pagesize=5;
+    $totalrows=gethousenum("house_need");   
+    $page=$_GET['page']?$_GET['page']:1;
+    $totalpage=ceil($totalrows/$pagesize);
+    $province=$_GET['province'];
+    $city=$_GET['city'];
+    $title=$_GET['title'];
+    $rent=$_GET['rent'];
+    if($province) $where.="province='$province'";
+    if($city) {
+        if($where)
+        $where.="and city='$city'";
+        else 
+        $where.="city='$city'";
+    }
+    if($title) {
+        if($where)
+        $where.="and title='$title'";
+        else 
+        $where.="title='$title'";
+    }
+    if($rent)
+    $row3 = gethousebypage($pagesize, $page, $totalpage,"house_need",$where,"rent $rent");
+    else 
+    $row3 = gethousebypage($pagesize, $page, $totalpage, "house_need",$where);
+    $where="province=$province&city=$city&title=$title&rent=$rent";
+?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -27,7 +55,7 @@
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="index.php">网站首页</a></li>
-				<li class="active"><a href="introduce.php">网站介绍</a></li>
+				<li><a href="introduce.php">网站介绍</a></li>
 			</ul>
 			<ul class="nav navbar-nav">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -38,7 +66,7 @@
 					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
+				<li class="dropdown active"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">房屋需求<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="housebuylist.php">房屋求购</a></li>
@@ -57,26 +85,38 @@
             ?>
 			<?php if($_SESSION['adminname']) $name=$_SESSION['adminname']?>
 			<div class="navbar-right">
-			    <p class="navbar-text "><strong>亲爱的<?php echo $name?>,欢迎登陆</strong></p>
+				<p class="navbar-text ">
+					<strong>亲爱的<?php echo $name?>,欢迎登陆</strong>
+				</p>
 			    <?php if(!$_SESSION['adminname']) {?>
-			    <p class="navbar-text "><a class="navbar-link" href="./vip/index.php">会员中心</a></p>
+			    <p class="navbar-text ">
+					<a class="navbar-link" href="./vip/index.php">会员中心</a>
+				</p>
 			    <?php }?>
 			    <?php if($_SESSION['adminname']) {?>
-			    <p class="navbar-text "><a class="navbar-link" href="./admin/index.php">管理员中心</a></p>
+			    <p class="navbar-text ">
+					<a class="navbar-link" href="./admin/index.php">管理员中心</a>
+				</p>
 			    <?php }?>
 			    <?php if(!$_SESSION['adminname']) {?>
-			    <p class="navbar-text "><a class="navbar-link" href="vipexit.handle.php">退出</a></p>
+			    <p class="navbar-text ">
+					<a class="navbar-link" href="vipexit.handle.php">退出</a>
+				</p>
 			    <?php }?>
 			    <?php if($_SESSION['adminname']) {?>
-			    <p class="navbar-text "><a class="navbar-link" href="adexit.handle.php">退出</a></p>
+			    <p class="navbar-text ">
+					<a class="navbar-link" href="adexit.handle.php">退出</a>
+				</p>
 			    <?php }?>
 			</div>
 			<?php }?>
 			<?php if(empty($_SESSION['vipname'])&&empty($_SESSION['adminname'])) {?>
-			<form class="navbar-form navbar-right" method="post" action="./vip/viplogin.handle.php">
+			<form class="navbar-form navbar-right" method="post"
+				action="./vip/viplogin.handle.php">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="请输入账号" name="username"> 
-					<input type="password" class="form-control" placeholder="请输入密码" name="password">
+					<input type="text" class="form-control" placeholder="请输入账号"
+						name="username"> <input type="password" class="form-control"
+						placeholder="请输入密码" name="password">
 				</div>
 				<button type="submit" class="btn btn-primary">登录</button>
 			</form>
@@ -87,52 +127,66 @@
 		</div>
 	</nav>
 	<!--body-->
-	<div id="slidershow" class="carousel slide" data-ride="carousel"
-		data-interval="1800">
-		<ol class="carousel-indicators">
-			<li class="active" data-target="#slidershow" data-slide-to="0"></li>
-			<li data-target="#slidershow" data-slide-to="1"></li>
-			<li data-target="#slidershow" data-slide-to="2"></li>
-		</ol>
-		<!-- 设置轮播图片 -->
-		<div class="carousel-inner">
-			<div class="item active">
-				<a href="##"><img
-					src="http://www.fwzjw.roboo.com/upload/2015-11-27/1448614947904-11706.png"
-					alt=""></a>
-				<!-- <div class="carousel-caption">
-					<h3>图片标题1</h3>
-					<p>描述内容1...</p>
-				</div> -->
+	<div class="container" style="margin-bottom: 70px">
+		<div class="panel panel-danger">
+			<div class="panel-heading lead">个人房屋求租</div>
+			<div class="panel-body">
+				<form class="form-inline" action="houseneedlist.php" method="get">
+					<div class="form-group">
+						<label for="province">省份</label> <input type="search" name="province"
+							class="form-control" id="province"
+							value="<?php echo $province;?>">
+					</div>
+					<div class="form-group">
+						<label for="city">城市</label> <input type="search" name="city"
+							class="form-control" id="city"
+							value="<?php echo $city;?>">
+					</div>
+					<div class="form-group">
+						<label for="title">标题</label> <input type="search" name="title"
+							class="form-control" id="title"
+							value="<?php echo $title;?>">
+					</div>
+					<div class="form-group">
+						<label for="price">租金</label> 
+						<select class="form-control" name="rent" id="rent">
+                            <option value="">请选择</option>
+                            <option value="asc" <?php if($rent=="asc") echo "selected=selected"?>>从低到高</option>
+                            <option value="desc" <?php if($rent=="desc") echo "selected=selected"?>>从高到低</option>
+                        </select>
+					</div>
+					<button type="submit" class="btn btn-default">搜索</button>
+				</form>
 			</div>
-			<div class="item">
-				<a href="##"><img
-					src="http://www.fwzjw.roboo.com/upload/2015-11-27/1448614947904-11706.png"
-					alt=""></a>
-				<!-- <div class="carousel-caption">
-					<h3>图片标题2</h3>
-					<p>描述内容2...</p>
-				</div> -->
-			</div>
-			<div class="item">
-				<a href="##"><img
-					src="http://www.fwzjw.roboo.com/upload/2015-11-27/1448614947904-11706.png"
-					alt=""></a>
-				<!-- <div class="carousel-caption">
-					<h3>图片标题3</h3>
-					<p>描述内容3...</p>
-				</div> -->
-			</div>
+			<div class="list-group">
+	   <?php if($row3&&is_array($row3))
+	           foreach ($row3 as $need) {
+	               if(mb_strlen($need['content'],'utf-8')>=60) {
+	                   $content=mb_substr($need['content'], 0,60,'utf-8')."...";
+	               }else {
+	                   $content=$need['content'];
+	               }
+	   ?>
+		<a href="houseneed.php?id=<?php echo $need[id]?>"
+					class="list-group-item ">
+					<h3 class="list-group-item-heading">[<?php echo $need['province'].$need['city'];?>]<?php echo $need['title'];?></h3>
+					<div class="row">
+						<div class="col-md-7">
+							<h4 class="list-group-item-text text-left"><?php echo $content;?></h4>
+						</div>
+						<div class="col-md-offset-2 col-md-3">
+							<h4 class="list-group-item-text text-right"><?php echo date("Y/m/d H:i:s",$need['pubtime']);?></h4>
+						</div>
+					</div>
+					<h4 class="list-group-item-text"><?php echo $need['name'];?>:&nbsp;&nbsp;<?php echo $need['phone'];?></h4>
+				</a>
+		<?php }?>
+	   </div>
 		</div>
-		<!-- 设置轮播图片控制器 -->
-		<a class="left carousel-control" href="#slidershow" role="button"
-			data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span>
-		</a> <a class="right carousel-control" href="#slidershow"
-			role="button" data-slide="next"> <span
-			class="glyphicon glyphicon-chevron-right"></span>
-		</a>
+		<div class="col-md-offset-5">
+           <?php echo showpage($page, $totalpage,$where);?>
+       </div>
 	</div>
-	
 	<!--body-->
 	<nav class="navbar navbar-inverse navbar-fixed-bottom">
 		<div class="row">
@@ -181,12 +235,11 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">性别</label> &nbsp;&nbsp; 
-							<label class="radio-inline"> 
-							<input type="radio" name="sex" id="inlineRadio1" value="1"> 男
-							</label> 
-							<label class="radio-inline"> 
-							<input type="radio" name="sex" id="inlineRadio2" value="2"> 女
+							<label class="col-sm-2 control-label">性别</label> &nbsp;&nbsp; <label
+								class="radio-inline"> <input type="radio" name="sex"
+								id="inlineRadio1" value="1"> 男
+							</label> <label class="radio-inline"> <input type="radio"
+								name="sex" id="inlineRadio2" value="2"> 女
 							</label>
 						</div>
 						<div class="form-group">

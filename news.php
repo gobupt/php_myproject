@@ -46,7 +46,7 @@
 					data-toggle="dropdown">房屋需求<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="housebuylist.php">房屋求购</a></li>
-						<li><a href="houseneedlist.php">新闻求租</a></li>
+						<li><a href="houseneedlist.php">房屋求租</a></li>
 					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav">

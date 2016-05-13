@@ -220,7 +220,7 @@
 					<div class="form-group">
 						<label for="time" class="col-md-offset-2 col-md-2 control-label">建成年代</label>
 						<div class="col-md-2">
-							<input type="text" class="form-control" name="time" id="time" value="<?php echo $sale['time'];?>">
+							<input type="text" class="form-control" name="time" id="time" value="<?php if($sale['time']!="0000") echo $sale['time'];?>">
 						</div>
 					</div>
 					<div class="form-group">
@@ -251,14 +251,24 @@
 						    if(!$imgs) echo "<p class='form-control-static'>暂未上传图片</p>";
 						    if($imgs&&is_array($imgs)) {
 						        $count=0;
+						        $i=0;
 						    foreach ($imgs as $img) {$count++;?>
 						    <label class="checkbox-inline">
-						    <input type="checkbox" name="delimage[]" value="<?php echo $img['id'];?>"> 
+						    <input type="checkbox" name="delimage[]" value="<?php echo $img['id'];?>" <?php if($i==0) echo "disabled";?>> 
 							<img src="<?php echo "../images_homethumb/{$img['albumpath']}";?>" alt="" class="img-rounded">
 							</label>
-							<?php if($count==4)  {echo "<br>";$count=0;}
+							<?php if($count==4)  {echo "<br>";$count=0;} $i++;
 						    }
 						    }?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for=""
+							class="col-md-offset-2 col-md-2 control-label">
+							修改展示图</label>
+						<div class="col-md-2">
+							<input type="file" class="form-control" name="image_index"
+								id="image" >
 						</div>
 					</div>
 					<div class="form-group">

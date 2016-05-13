@@ -10,9 +10,9 @@ function showpage($page, $totalpage, $where = NULL)
     $next = ($page == $totalpage) ? "<li class='disabled'><a href='$url?page=" .$totalpage. "$where'><span>&rsaquo;</span></a></li>" : "<li ><a href='$url?page=" . ($page + 1) . "$where'><span>&rsaquo;</span></a></li>";
     for ($i = 1; $i <= $totalpage; $i ++) {
         if ($i == $page)
-            $str .= "<li class='active'><a href='$url?page=" . $i . "'>$i</a></li>";
+            $str .= "<li class='active'><a href='$url?page=" . $i . "$where'>$i</a></li>";
         else {
-            $str .= "<li><a href='$url?page=" . $i . "'>$i</a></li>";
+            $str .= "<li><a href='$url?page=" . $i . "$where'>$i</a></li>";
         }
     }
     $formathead = "<nav><ul class='pagination '>";

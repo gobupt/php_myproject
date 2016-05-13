@@ -212,7 +212,7 @@
 					<div class="form-group">
 						<label for="time" class="col-md-offset-2 col-md-2 control-label">建成年代</label>
 						<div class="col-md-2">
-							<input type="text" class="form-control" name="time" id="time" value="<?php echo $sale['time'];?>">
+							<input type="text" class="form-control" name="time" id="time" value="<?php if($sale['time']!="0000") echo $sale['time'];?>">
 						</div>
 					</div>
 					<div class="form-group">
@@ -260,7 +260,7 @@
 							修改展示图</label>
 						<div class="col-md-2">
 							<input type="file" class="form-control" name="image_index"
-								id="image" multiple="multiple">
+								id="image" >
 						</div>
 					</div>
 					<div class="form-group">

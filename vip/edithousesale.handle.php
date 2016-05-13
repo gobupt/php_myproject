@@ -25,7 +25,7 @@ $array['pubtime']=time();
 $array['vid']=$_SESSION['vipid'];
 $table="house_sale";
 $hid=$_POST['hid'];
-if($array['title']&&$array['community']&&$array['city']&&$array['county']&&$array['town']&&$array['address']&&$array['room']&&$array['hall']&&$array['toilet']&&$array['area']&&$array['price']&&$array['time']&&$array['name']&&$array['structure']&&$array['phone']) {
+if($array['title']&&$array['community']&&$array['city']&&$array['county']&&$array['town']&&$array['address']&&$array['room']&&$array['hall']&&$array['toilet']&&$array['area']&&$array['price']&&$array['name']&&$array['structure']&&$array['phone']) {
     if($array['time']) {
         if($array['time']<1901 || $array['time']>2016)
             alertmes("请输入有效年份(1901-2016)", "housesaleedit.php?id=$hid");

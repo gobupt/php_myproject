@@ -102,10 +102,10 @@ function gethousenum($table,$where=null) {
  * @param unknown $totalpage
  * @return Ambigous <Ambigous, multitype:>
  */
-function gethousebypage($pagesize, $page, $totalpage,$table,$where=null) {
+function gethousebypage($pagesize, $page, $totalpage,$table,$where=null,$order="pubtime desc") {
     $where= ($where)? "where $where" : null;
     $offset = ($page-1)*$pagesize;
-    $sql = "select * from $table $where order by pubtime desc limit $offset,$pagesize";
+    $sql = "select * from $table $where order by $order limit $offset,$pagesize";
     $row3 = fetchall($sql);
     return $row3;
 }
