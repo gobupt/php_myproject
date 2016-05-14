@@ -1,7 +1,7 @@
 <?php 
     require_once 'include.php';
     $pagesize=5;
-    $totalrows=gethousenum("house_buy");   
+    $totalrows=gethousenum("house_rent");   
     $page=$_GET['page']?$_GET['page']:1;
     $totalpage=ceil($totalrows/$pagesize);
     $province=$_GET['province'];
@@ -22,9 +22,9 @@
         $where.="title like '%$title%'";
     }
     if($price)
-    $row3 = gethousebypage($pagesize, $page, $totalpage,"house_buy",$where,"price $price");
+    $row3 = gethousebypage($pagesize, $page, $totalpage,"house_rent",$where,"rent $price");
     else 
-    $row3 = gethousebypage($pagesize, $page, $totalpage, "house_buy",$where);
+    $row3 = gethousebypage($pagesize, $page, $totalpage, "house_rent",$where);
     $where="province=$province&city=$city&title=$title&price=$price";
 ?>
 <!DOCTYPE html>
@@ -58,7 +58,7 @@
 				<li><a href="introduce.php">网站介绍</a></li>
 			</ul>
 			<ul class="nav navbar-nav">
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
+				<li class="dropdown active"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">房屋供应<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="housesalelist.php">房屋出售</a></li>
@@ -66,7 +66,7 @@
 					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav">
-				<li class="dropdown active"><a href="#" class="dropdown-toggle"
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown">房屋需求<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="housebuylist.php">房屋求购</a></li>
@@ -129,9 +129,9 @@
 	<!--body-->
 	<div class="container" style="margin-bottom: 70px">
 		<div class="panel panel-danger">
-			<div class="panel-heading lead">个人房屋求购</div>
+			<div class="panel-heading lead">个人房屋出租</div>
 			<div class="panel-body">
-				<form class="form-inline" action="housebuylist.php" method="get">
+				<form class="form-inline" action="houserentlist.php" method="get">
 					<div class="form-group">
 						<label for="province">省份</label> <input type="search" name="province"
 							class="form-control" id="province"
@@ -160,25 +160,33 @@
 			</div>
 			<div class="list-group">
 	   <?php if($row3&&is_array($row3))
-	           foreach ($row3 as $buy) {
-	               if(mb_strlen($buy['content'],'utf-8')>=60) {
-	                   $content=mb_substr($buy['content'], 0,60,'utf-8')."...";
+	           foreach ($row3 as $rent) {
+	               if(mb_strlen($rent['content'],'utf-8')>=60) {
+	                   $content=mb_substr($rent['content'], 0,60,'utf-8')."...";
 	               }else {
-	                   $content=$buy['content'];
+	                   $content=$rent['content'];
 	               }
 	   ?>
-		<a href="housebuy.php?id=<?php echo $buy[id]?>"
+		<a href="houserent.php?id=<?php echo $rent[id]?>"
 					class="list-group-item ">
-					<h3 class="list-group-item-heading">[<?php echo $buy['province'].$buy['city'];?>]<?php echo $buy['title'];?></h3>
 					<div class="row">
-						<div class="col-md-7">
+					    <div class="col-md-3">
+					       <?php
+					           $img = getoneimgbyhid($rent['id'],"rent"); 
+					       ?>
+					       <img src="images_homethumb/<?php echo $img['albumpath'];?>" class="img-thumbnail">
+					    </div>
+						<div class="col-md-6">
+						    <h3 class="list-group-item-heading">[<?php echo $rent['province'].$rent['city'];?>]<?php echo $rent['title'];?></h3>
 							<h4 class="list-group-item-text text-left"><?php echo $content;?></h4>
+							<h4 class="list-group-item-text"><?php echo $rent['name'];?>:&nbsp;&nbsp;<?php echo $rent['phone'];?></h4>
 						</div>
-						<div class="col-md-offset-2 col-md-3">
-							<h4 class="list-group-item-text text-right"><?php echo date("Y/m/d H:i:s",$buy['pubtime']);?></h4>
+						<div class="col-md-3" >
+						    <h4 class="list-group-item-text text-right"><small>租金</small><span style="font-size:30px;color:#f60;"><?php echo $rent['rent']."元/月";?></span></h4>
+							<h4 class="list-group-item-text text-right"><?php echo date("Y/m/d H:i:s",$rent['pubtime']);?></h4>
 						</div>
 					</div>
-					<h4 class="list-group-item-text"><?php echo $buy['name'];?>:&nbsp;&nbsp;<?php echo $buy['phone'];?></h4>
+					
 				</a>
 		<?php }?>
 	   </div>

@@ -1,7 +1,7 @@
 <?php
 // 原图 uploads
 // width 275px height 207px 列表页缩略图 listthumb
-// width 722px height 542px 详情页图     detail
+// width 451px height 338px 详情页图     detail
 // width 94px  height 62px  详情页略缩图 detailthumb
 // width 207px height 138px 主页略缩图   homethumb
 
@@ -17,7 +17,7 @@ function addhouse($table,$array,$cate) {
         if(is_array($uploadfiles)&&$uploadfiles) {
             foreach ($uploadfiles as $uploadfile) {
                 thumb("uploads/".$uploadfile['name'],"../images_listthumb/".$uploadfile['name'],1,275,207);
-                thumb("uploads/".$uploadfile['name'],"../images_detail/".$uploadfile['name'],1,722,542);
+                thumb("uploads/".$uploadfile['name'],"../images_detail/".$uploadfile['name'],1,451,338);
                 thumb("uploads/".$uploadfile['name'],"../images_detailthumb/".$uploadfile['name'],1,94,62);
                 thumb("uploads/".$uploadfile['name'],"../images_homethumb/".$uploadfile['name'],1,207,138);
                 $arr1['hid']=$hid;
@@ -46,7 +46,7 @@ function edithouse($table, $array,$cate,$hid) {
         if(is_array($uploadfiles)&&$uploadfiles) {
             foreach ($uploadfiles as $uploadfile) {
                 thumb("uploads/".$uploadfile['name'],"../images_listthumb/".$uploadfile['name'],1,275,207);
-                thumb("uploads/".$uploadfile['name'],"../images_detail/".$uploadfile['name'],1,722,542);
+                thumb("uploads/".$uploadfile['name'],"../images_detail/".$uploadfile['name'],1,451,338);
                 thumb("uploads/".$uploadfile['name'],"../images_detailthumb/".$uploadfile['name'],1,94,62);
                 thumb("uploads/".$uploadfile['name'],"../images_homethumb/".$uploadfile['name'],1,207,138);
                 if(!$i&&$_FILES['image_index']['tmp_name']) {
@@ -120,6 +120,12 @@ function getonehouse($id,$table) {
     return fetchone($sql);
 }
 
+/**
+ * 通过数量获得房屋
+ * @param unknown $num
+ * @param unknown $table
+ * @return Ambigous <Ambigous, multitype:>
+ */
 function gettophousebynum($num,$table) {
     $sql = "select * from $table order by pubtime desc limit 0,$num";
     $row = fetchall($sql);

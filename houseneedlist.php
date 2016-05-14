@@ -8,18 +8,18 @@
     $city=$_GET['city'];
     $title=$_GET['title'];
     $rent=$_GET['rent'];
-    if($province) $where.="province='$province'";
+    if($province) $where.="province like '%$province%'";
     if($city) {
         if($where)
-        $where.="and city='$city'";
+        $where.="and city like '%$city%'";
         else 
-        $where.="city='$city'";
+        $where.="city like '%$city%'";
     }
     if($title) {
         if($where)
-        $where.="and title='$title'";
+        $where.="and title like '%$title%'";
         else 
-        $where.="title='$title'";
+        $where.="title like '%$title%'";
     }
     if($rent)
     $row3 = gethousebypage($pagesize, $page, $totalpage,"house_need",$where,"rent $rent");
@@ -148,7 +148,7 @@
 							value="<?php echo $title;?>">
 					</div>
 					<div class="form-group">
-						<label for="price">租金</label> 
+						<label for="rent">租金</label> 
 						<select class="form-control" name="rent" id="rent">
                             <option value="">请选择</option>
                             <option value="asc" <?php if($rent=="asc") echo "selected=selected"?>>从低到高</option>

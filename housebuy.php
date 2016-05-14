@@ -1,31 +1,10 @@
 <?php 
     require_once 'include.php';
-    $pagesize=5;
-    $totalrows=gethousenum("house_buy");   
-    $page=$_GET['page']?$_GET['page']:1;
-    $totalpage=ceil($totalrows/$pagesize);
-    $province=$_GET['province'];
-    $city=$_GET['city'];
-    $title=$_GET['title'];
-    $price=$_GET['price'];
-    if($province) $where.="province like '%$province%'";
-    if($city) {
-        if($where)
-        $where.="and city like '%$city%'";
-        else 
-        $where.="city like '%$city%'";
-    }
-    if($title) {
-        if($where)
-        $where.="and title like '%$title%'";
-        else 
-        $where.="title like '%$title%'";
-    }
-    if($price)
-    $row3 = gethousebypage($pagesize, $page, $totalpage,"house_buy",$where,"price $price");
-    else 
-    $row3 = gethousebypage($pagesize, $page, $totalpage, "house_buy",$where);
-    $where="province=$province&city=$city&title=$title&price=$price";
+    $id = $_GET['id'];
+    $buy = getonehouse($id, "house_buy");
+    $vid = $_SESSION['vipid'];
+    $area = array("50以下","50-70","70-90","90-120","120-150","150-200","200-500","500以上");
+    $price = array("50以下","50-80","80-100","100-120","120-150","150-200","200-500","500以上");
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -127,66 +106,53 @@
 		</div>
 	</nav>
 	<!--body-->
-	<div class="container" style="margin-bottom: 70px">
-		<div class="panel panel-danger">
-			<div class="panel-heading lead">个人房屋求购</div>
-			<div class="panel-body">
-				<form class="form-inline" action="housebuylist.php" method="get">
-					<div class="form-group">
-						<label for="province">省份</label> <input type="search" name="province"
-							class="form-control" id="province"
-							value="<?php echo $province;?>">
-					</div>
-					<div class="form-group">
-						<label for="city">城市</label> <input type="search" name="city"
-							class="form-control" id="city"
-							value="<?php echo $city;?>">
-					</div>
-					<div class="form-group">
-						<label for="title">标题</label> <input type="search" name="title"
-							class="form-control" id="title"
-							value="<?php echo $title;?>">
-					</div>
-					<div class="form-group">
-						<label for="price">价格</label> 
-						<select class="form-control" name="price" id="price">
-                            <option value="">请选择</option>
-                            <option value="asc" <?php if($price=="asc") echo "selected=selected"?>>从低到高</option>
-                            <option value="desc" <?php if($price=="desc") echo "selected=selected"?>>从高到低</option>
-                        </select>
-					</div>
-					<button type="submit" class="btn btn-default">搜索</button>
-				</form>
-			</div>
-			<div class="list-group">
-	   <?php if($row3&&is_array($row3))
-	           foreach ($row3 as $buy) {
-	               if(mb_strlen($buy['content'],'utf-8')>=60) {
-	                   $content=mb_substr($buy['content'], 0,60,'utf-8')."...";
-	               }else {
-	                   $content=$buy['content'];
-	               }
-	   ?>
-		<a href="housebuy.php?id=<?php echo $buy[id]?>"
-					class="list-group-item ">
-					<h3 class="list-group-item-heading">[<?php echo $buy['province'].$buy['city'];?>]<?php echo $buy['title'];?></h3>
-					<div class="row">
-						<div class="col-md-7">
-							<h4 class="list-group-item-text text-left"><?php echo $content;?></h4>
-						</div>
-						<div class="col-md-offset-2 col-md-3">
-							<h4 class="list-group-item-text text-right"><?php echo date("Y/m/d H:i:s",$buy['pubtime']);?></h4>
-						</div>
-					</div>
-					<h4 class="list-group-item-text"><?php echo $buy['name'];?>:&nbsp;&nbsp;<?php echo $buy['phone'];?></h4>
-				</a>
-		<?php }?>
-	   </div>
-		</div>
-		<div class="col-md-offset-5">
-           <?php echo showpage($page, $totalpage,$where);?>
+	<div class="container">
+	   <div class="page-header " >
+	      <div class="row">
+            <div class="col-md-8 text-center"><h2><strong><?php echo $buy['title'];?></strong></h2></div>
+            <div class="col-md-4 text-right">
+                <h3>
+                    <small>
+                        发布时间:<?php echo date('Y-m-d H:i:s',$buy['pubtime'])."&nbsp"."&nbsp";
+                                    if($_SESSION['adminid']) 
+                                        echo "<a class='btn btn-info btn-xs' href='admin/housebuyedit.php?id={$buy['id']}'>编辑</a> &nbsp; | &nbsp; <a class='btn btn-danger btn-xs' href='admin/housebuydel.handle.php?id={$buy['id']}'>删除</a>";
+                                    else if($vid == $buy['vid'])
+                                        echo "<a class='btn btn-info btn-xs' href='vip/housebuyedit.php?id={$buy['id']}'>编辑</a> &nbsp; | &nbsp; <a class='btn btn-danger btn-xs' href='vip/housebuydel.handle.php?id={$buy['id']}'>删除</a>";
+                                 ?>
+                    </small>
+                </h3>
+            </div>
+          </div>
        </div>
-	</div>
+       <div class="row">
+        <div class="col-md-6" style="border-right:1px solid #eee">
+            <ul class="list-unstyled" style="margin-bottom: 50px;margin-top:50px">
+               <li style="margin-bottom: 50px">
+                <h4>地点：<?php echo $buy['province'].$buy['city'].$buy['county'].$buy['town'].$buy['address'];?>  </h4>
+               </li> 
+               <li style="margin-bottom: 50px">
+                <h4>期望面积：<?php echo $area[$buy['area']-1];?> ㎡</h4>
+               </li>
+               <li>
+                <h4>期望价格：<?php echo $price[$buy['price']-1];?> 万元</h4>
+               </li> 
+            </ul>
+        </div>
+        <div class="col-md-6" >
+            <ul class="list-unstyled" style="margin-bottom: 50px;margin-top:50px">
+               <li style="margin-bottom: 100px">
+                <h4>联系人：<?php echo $buy['name'];?> </h4>
+               </li> 
+               <li>
+                <h4>联系电话：<?php echo $buy['phone'];?> </h4>
+               </li>
+            </ul>
+        </div>
+       </div>
+       <hr/>
+       <p class="lead" style="margin-top: 50px"><?php echo $buy['content'];?></p>
+       <p style="color: red"><strong>联系我时，请说是在房屋中介管理系统上看到的，谢谢！</strong></p>
+    </div>
 	<!--body-->
 	<nav class="navbar navbar-inverse navbar-fixed-bottom">
 		<div class="row">

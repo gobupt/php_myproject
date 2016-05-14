@@ -3,7 +3,11 @@
     $id=7;
     $sql = "select name from (select A.id,name from house_admin A,house_board B where A.id=B.pubid) as C where id=$id";
     $ad=fetchone($sql);
-    print_r($ad);
+    $arr=array(
+ 0=>array('title' => '新闻1', 'viewnum' => 123, 'content' => 'ZAQXSWedcrfv'),
+ 1=>array('title' => '新闻2', 'viewnum' => 99, 'content' => 'QWERTYUIOPZXCVBNM')
+);
+    echo count($arr);
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
